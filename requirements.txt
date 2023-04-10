@@ -1,3 +1,3 @@
-sentence-transformers -q
+sentence-transformers
 openai
 gradio

@@ -7,9 +7,27 @@ import torch
 import openai
 from PIL import Image
 
+system_text = """You are an expert AI that extracts knowledge graphs from text and outputs JSON files with the extracted knowledge, and nothing more. Here's how the JSON is broken down.
+
+Entity dictionaries are organized in a list
+Every entity mentioned in the text has its own entity dictionary, in which the name of the entity is the key, and the value is a list of relationships.
+Each relationship contains a short word or two accurately describing the relationship to the other entity as the key, and then the other entity as a value.
+All inverses of these relationships are represented in the relationship list of the other entities. This is REALY IMPORTANT. For example if Apple created the iPhone, it is also important to note that the iPhone was created by Apple (each entity should have this relsationship from their perspective).
+Non specified relationships are also inferred (if person X is the son of person Y, and person Z is person X's sibling, person Z is also the child of person Y).
+The JSON contains NO NEW LINES. All the data should be on one line.
+
+Every entity has a "description" relationship which provides a short description of what it is in a few words. If the description references another entity, then this relationship MUST be graphed, even if it is redundant.
+
+Relationships are only created about facts, not just any connection between two entities mentioned in the text.
+
+
+Example output:
+[{"Toki Pona": [{"description": "philosophical artistic constructed language"}, {"translated as": "the language of good"}, {"created by": "Sonja Lang"}, {"first published": "2001"}, {"complete form published in": "Toki Pona: The Language of Good"}, {"supplementary dictionary": "Toki Pona Dictionary"}], "Sonja Lang": [{"description": "Canadian linguist and translator"}, {"creator of": "Toki Pona"}], "Toki Pona: The Language of Good": [{"description": "book"}, {"published in": "2014"}, {"language": "Toki Pona"}], "Toki Pona Dictionary": [{"description": "dictionary"}, {"released in": "July 2021"}, {"based on": "community usage"}]}]"""
+
 class KnowledgeGraph:
     def __init__(self,api_key,kg_file=""):
         openai.api_key = api_key 
+        self.system_text = system_text
         self.graph = pydot.Dot(graph_type="digraph")
         self.entities = {}
         self.fact_scores = {}
@@ -89,7 +107,7 @@ class KnowledgeGraph:
       return results
 
     def text_to_data(self,text):
-      system = {"role":"system","content":system_text}
+      system = {"role":"system","content":self.system_text}
       messages = [system]
       try:
         related = self.related_entities(text)

@@ -27,7 +27,6 @@ Example output:
 class KnowledgeGraph:
     def __init__(self,api_key,kg_file=""):
         openai.api_key = api_key 
-        self.system_text = system_text
         self.graph = pydot.Dot(graph_type="digraph")
         self.entities = {}
         self.fact_scores = {}
@@ -82,6 +81,7 @@ class KnowledgeGraph:
         self.graph.write_png(output_file)
         img = Image.open(output_file)
         img.show()
+        return img
 
     def search(self, query, n=5):
       if len(self.entity_embeddings)<5:
@@ -107,7 +107,7 @@ class KnowledgeGraph:
       return results
 
     def text_to_data(self,text):
-      system = {"role":"system","content":self.system_text}
+      system = {"role":"system","content":system_text}
       messages = [system]
       try:
         related = self.related_entities(text)

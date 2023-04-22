@@ -17,16 +17,16 @@ sklearn
 Installation
 To install GPT4KG, use pip:
 
-bash
-Copy code
+```bash
 pip install GPT4KG
+```
 Usage
 Here is an example of how to use GPT4KG to extract a knowledge graph from text:
 
-python
-Copy code
+```python
 import json
 from GPT4KG import KnowledgeGraph
+```
 
 ## Instantiate the KnowledgeGraph class with your OpenAI API key
 kg = KnowledgeGraph(api_key="your_api_key")

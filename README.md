@@ -1,7 +1,7 @@
-### GPT4KG: Knowledge Graph Extraction with GPT-4
+# GPT4KG: Knowledge Graph Extraction with GPT-4
 GPT4KG is a Python library for extracting knowledge graphs from text using GPT-4. The library uses OpenAI's GPT-4 language model to parse text and extract entities and relationships. The resulting knowledge graph is outputted as a JSON file, which can be used for downstream processing.
 
-# Features
+## Features
 Extract entities and relationships from text using GPT-4
 Build a knowledge graph from extracted entities and relationships
 Search the knowledge graph for related entities based on a query
@@ -28,16 +28,16 @@ Copy code
 import json
 from GPT4KG import KnowledgeGraph
 
-# Instantiate the KnowledgeGraph class with your OpenAI API key
+## Instantiate the KnowledgeGraph class with your OpenAI API key
 kg = KnowledgeGraph(api_key="your_api_key")
 
-# Text to extract the knowledge graph from
+## Text to extract the knowledge graph from
 text = "You are an expert AI that extracts knowledge graphs from text and outputs JSON files with the extracted knowledge, and nothing more. Here's how the JSON is broken down..."
 
-# Extract the knowledge graph from the text
+## Extract the knowledge graph from the text
 kg.update_graph(text)
 
-# Display the knowledge graph
+## Display the knowledge graph
 kg.display_graph()
 
 # Search the knowledge graph for related entities

@@ -29,13 +29,18 @@ from GPT4KG import KnowledgeGraph
 ```
 
 ## Instantiate the KnowledgeGraph class with your OpenAI API key
+```python
 kg = KnowledgeGraph(api_key="your_api_key")
+```
 
 ## Text to extract the knowledge graph from
+```python
 text = "You are an expert AI that extracts knowledge graphs from text and outputs JSON files with the extracted knowledge, and nothing more. Here's how the JSON is broken down..."
-
+```
 ## Extract the knowledge graph from the text
+```python
 kg.update_graph(text)
+```
 
 ## Display the knowledge graph
 kg.display_graph()
